@@ -11,7 +11,10 @@ def do_request(url, data, token):
     if token is not None:
         headers['Authorization'] = "Bearer %s" % token
     r = requests.post(api+url, data=data, headers=headers)
-    return r.status_code, json.loads(r.text)
+    if r.text == "":
+        return r.status_code, ""
+    else:    
+        return r.status_code, json.loads(r.text)
 
 
 print "Please, login to your tutor account to send the data to the server:"
